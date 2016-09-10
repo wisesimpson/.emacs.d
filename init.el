@@ -9,7 +9,7 @@
 (add-hook 'after-init-hook 'global-company-mode)
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-'(js2-strict-missing-semi-warning nil)
+(setq js2-strict-missing-semi-warning nil)
 
 (require 'package)
 (add-to-list 'package-archives
