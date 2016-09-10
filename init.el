@@ -1,11 +1,15 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+
 (global-linum-mode 1)
 (global-visual-line-mode 1)
 (setq-default line-spacing 2)
 
 (add-hook 'after-init-hook 'global-company-mode)
+
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+'(js2-strict-missing-semi-warning nil)
 
 (require 'package)
 (add-to-list 'package-archives
@@ -30,9 +34,9 @@
  '(custom-safe-themes
    (quote
     ("427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" default)))
- '(package-selected-packages (quote (dracula-theme slime-company company slime)))
- '(scroll-bar-mode nil)
- '(tool-bar-mode nil))
+ '(package-selected-packages
+   (quote
+    (js2-mode dracula-theme slime-company company slime))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
