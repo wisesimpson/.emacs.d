@@ -1,4 +1,4 @@
-(menu-bar-mode -1)
+;; (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
@@ -50,11 +50,4 @@
  '(custom-enabled-themes (quote (dracula)))
  '(custom-safe-themes
    (quote
-    ("427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" default)))
- '(tool-bar-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
+    ("427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" default))))
