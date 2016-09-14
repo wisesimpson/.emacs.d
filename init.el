@@ -32,6 +32,11 @@
 (require 'slime)
 (define-key slime-mode-map (kbd "C-c e") 'slime-eval-buffer)
 
+;; key binding
+(when (eq system-type 'darwin)
+  (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)
+  (global-set-key (kbd "<C-s-268632070>") 'toggle-frame-fullscreen))
+
 ;; (custom-set-variables
 ;;  ;; custom-set-variables was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.
