@@ -1,7 +1,15 @@
-;; (menu-bar-mode -1)
+;; hide menu bar unless it's MacOS
+(unless (eq system-type 'darwin)
+  (menu-bar-mode -1))
+
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+;; font
+(set-fontset-font "fontset-startup" 'unicode (font-spec :name "Consolas" :size 32) nil)
+(set-fontset-font "fontset-startup" 'unicode (font-spec :name "Menlo") nil 'append)
+
+;; line number
 (global-linum-mode t)
 (setq linum-format
       #'(lambda (line)
@@ -36,16 +44,6 @@
 (when (eq system-type 'darwin)
   (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)
   (global-set-key (kbd "<C-s-268632070>") 'toggle-frame-fullscreen))
-
-;; (custom-set-variables
-;;  ;; custom-set-variables was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(custom-enabled-themes (quote (dracula)))
-;;  '(custom-safe-themes
-;;    (quote
-;;     ("427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" default))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
