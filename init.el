@@ -6,8 +6,11 @@
 (scroll-bar-mode -1)
 
 ;; font
-(set-fontset-font "fontset-startup" nil (font-spec :name "Consolas" :size 32) nil)
-(set-fontset-font "fontset-startup" nil (font-spec :name "Menlo" :size 12) nil 'append)
+(cond
+ ((find-font (font-spec :name "Consolas"))
+  (set-frame-font "Consolas-12"))
+ ((find-font (font-spec :name "Menlo"))
+  (set-frame-font "Menlo-12")))
 
 ;; line number
 (global-linum-mode t)
@@ -53,4 +56,11 @@
  '(custom-enabled-themes (quote (dracula)))
  '(custom-safe-themes
    (quote
-    ("427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" default))))
+    ("427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" default)))
+ '(package-selected-packages (quote (dracula-theme company slime))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
