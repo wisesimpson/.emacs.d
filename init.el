@@ -6,8 +6,8 @@
 (scroll-bar-mode -1)
 
 ;; font
-(set-fontset-font "fontset-startup" 'unicode (font-spec :name "Consolas" :size 32) nil)
-(set-fontset-font "fontset-startup" 'unicode (font-spec :name "Menlo") nil 'append)
+(set-fontset-font "fontset-startup" nil (font-spec :name "Consolas" :size 32) nil)
+(set-fontset-font "fontset-startup" nil (font-spec :name "Menlo" :size 12) nil 'append)
 
 ;; line number
 (global-linum-mode t)
