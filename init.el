@@ -41,6 +41,7 @@
 (setq inferior-lisp-program "sbcl")
 
 (require 'slime)
+(slime-setup '(slime-repl))
 (define-key slime-mode-map (kbd "C-c e") 'slime-eval-buffer)
 
 ;; key binding
