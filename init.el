@@ -12,6 +12,11 @@
  ((find-font (font-spec :name "Menlo"))
   (set-frame-font "Menlo-12")))
 
+(dolist (charset '(kana han symbol cjk-misc bopomofo))
+  (set-fontset-font (frame-parameter nil 'font)
+		    charset
+		    (font-spec :family "Microsoft YaHei UI")))
+
 ;; highlight current line
 (global-hl-line-mode)
 
