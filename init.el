@@ -12,15 +12,19 @@
  ((find-font (font-spec :name "Menlo"))
   (set-frame-font "Menlo-12")))
 
+;; highlight current line
+(global-hl-line-mode)
+
 ;; line number
 (global-linum-mode t)
-(setq linum-format
-      #'(lambda (line)
-          (let ((w (length (number-to-string (count-lines (point-min) (point-max))))))
-            (propertize (format (format " %%%dd" w) line) 'face 'linum))))
+;; (setq linum-format
+;;       #'(lambda (line)
+;;           (let ((w (length (number-to-string (count-lines (point-min) (point-max))))))
+;;             (propertize (format (format " %%%dd " w) line) 'face 'linum))))
 
+;; visual line mode
 (global-visual-line-mode 1)
-(setq-default line-spacing 2)
+;; (setq-default line-spacing 10)
 
 (add-hook 'after-init-hook 'global-company-mode)
 
