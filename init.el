@@ -30,7 +30,9 @@
 ;; visual line mode
 (global-visual-line-mode 1)
 ;; (setq-default line-spacing 0.25)
-(show-paren-mode 1)
+
+(require 'ido)
+(ido-mode t)
 
 (add-hook 'after-init-hook 'global-company-mode)
 
