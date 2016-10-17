@@ -14,8 +14,16 @@
 
 (dolist (charset '(kana han symbol cjk-misc bopomofo))
   (set-fontset-font (frame-parameter nil 'font)
-		    charset
-		    (font-spec :family "Microsoft YaHei UI")))
+                    charset
+                    (font-spec :family "Microsoft YaHei UI")))
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/"))
+(package-initialize)
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 ;; highlight current line
 (global-hl-line-mode)
@@ -31,9 +39,6 @@
 (global-visual-line-mode 1)
 ;; (setq-default line-spacing 0.25)
 
-(require 'ido)
-(ido-mode t)
-
 (add-hook 'after-init-hook 'global-company-mode)
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
@@ -44,11 +49,6 @@
 
 (setq less-css-compile-at-save t)
 (setq less-css-lessc-options (quote ("--no-color -x")))
-
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/"))
-(package-initialize)
 
 (setq inferior-lisp-program "sbcl")
 
