@@ -15,7 +15,7 @@
 (dolist (charset '(kana han symbol cjk-misc bopomofo))
   (set-fontset-font (frame-parameter nil 'font)
                     charset
-                    (font-spec :family "Microsoft YaHei UI")))
+                    (font-spec :family "DengXian")))
 
 (require 'package)
 (add-to-list 'package-archives
