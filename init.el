@@ -22,9 +22,6 @@
              '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
-
 ;; highlight current line
 (global-hl-line-mode)
 
@@ -69,8 +66,8 @@
  '(custom-enabled-themes (quote (dracula)))
  '(custom-safe-themes
    (quote
-    ("427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" default)))
- '(package-selected-packages (quote (dracula-theme company slime))))
+    ("eb0a314ac9f75a2bf6ed53563b5d28b563eeba938f8433f6d1db781a47da1366" "427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" default)))
+ '(package-selected-packages (quote (web-mode magit dracula-theme company slime))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
