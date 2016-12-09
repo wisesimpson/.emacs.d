@@ -22,6 +22,24 @@
              '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
+;; Fetch the list of packages available 
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Auto-install packages
+(dolist (package '(magit dracula-theme company slime))
+  (unless (package-installed-p package)
+    (package-install package)))
+
+(load-theme 'dracula t)
+
+;; Set path environment only on macOS
+(when (memq window-system '(mac ns))
+  (unless (package-installed-p 'exec-path-from-shell)
+    (package-install 'exec-path-from-shell))
+  (require 'exec-path-from-shell)
+  (exec-path-from-shell-initialize))
+
 ;; highlight current line
 (global-hl-line-mode)
 
@@ -63,11 +81,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (dracula)))
- '(custom-safe-themes
+ '(package-selected-packages
    (quote
-    ("eb0a314ac9f75a2bf6ed53563b5d28b563eeba938f8433f6d1db781a47da1366" "427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" default)))
- '(package-selected-packages (quote (web-mode magit dracula-theme company slime))))
+    (exec-path-from-shell slime company dracula-theme magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
