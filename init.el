@@ -27,7 +27,7 @@
   (package-refresh-contents))
 
 ;; Auto-install packages
-(dolist (package '(magit dracula-theme company slime))
+(dolist (package '(magit dracula-theme company slime js2-mode))
   (unless (package-installed-p package)
     (package-install package)))
 
