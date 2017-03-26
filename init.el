@@ -61,6 +61,7 @@
 
 (require 'recentf)
 (recentf-mode 1)
+(setq recentf-max-menu-items 50)
 
 (setq less-css-compile-at-save t)
 (setq less-css-lessc-options (quote ("--no-color -x")))
