@@ -27,7 +27,7 @@
   (package-refresh-contents))
 
 ;; Auto-install packages
-(dolist (package '(magit dracula-theme company slime js2-mode))
+(dolist (package '(magit dracula-theme company slime js2-mode mmm-mode))
   (unless (package-installed-p package)
     (package-install package)))
 
@@ -77,6 +77,50 @@
   (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)
   (global-set-key (kbd "<C-s-268632070>") 'toggle-frame-fullscreen))
 
+;; tramp for Windows
+(require 'tramp)
+(set-default 'tramp-auto-save-directory "C:\\Users\\ja\\AppData\\Local\\Temp")
+(set-default 'tramp-default-method "plink")
+
+;; mmm-mode
+(require 'cl)
+(require 'mmm-auto)
+(require 'mmm-vars)
+(setq mmm-global-mode 1)
+
+(mmm-add-group
+ 'html-js
+ '((js-script-cdata
+    :submode js-mode
+    :face mmm-code-submode-face
+    :front "<script[^>]*>[ \t\n]*\\(//\\)?<!\\[CDATA\\[[ \t]*\n?"
+    :back "[ \t]*\\(//\\)?]]>[ \t\n]*</script>")
+   (js-script
+    :submode js-mode
+    :face mmm-code-submode-face
+    :front "<script[^>]*>[ \t]*\n?"
+    :back "[ \t]*</script>"
+    :insert ((?j js-tag nil @ "<script type=\"text/javascript\">\n"
+                 @ "" _ "" @ "\n</script>" @)))))
+
+(mmm-add-group
+ 'html-css
+ '((css-cdata
+    :submode css
+    :face mmm-code-submode-face
+    :front "<style[^>]*>[ \t\n]*\\(//\\)?<!\\[CDATA\\[[ \t]*\n?"
+    :back "[ \t]*\\(//\\)?]]>[ \t\n]*</style>")
+   (css
+    :submode css
+    :face mmm-code-submode-face
+    :front "<style[^>]*>[ \t]*\n?"
+    :back "[ \t]*</style>"
+    :insert ((?c css-tag nil @ "<style type=\"text/css\">\n"
+                 @ "" _ "" @ "\n</style>" @)))))
+
+(mmm-add-mode-ext-class 'html-mode nil 'html-js)
+(mmm-add-mode-ext-class 'html-mode nil 'html-css)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -84,7 +128,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (exec-path-from-shell slime company dracula-theme magit))))
+    (mmm-mode exec-path-from-shell slime company dracula-theme magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -92,6 +136,3 @@
  ;; If there is more than one, they won't work right.
  )
 
-(require 'tramp)
-(set-default 'tramp-auto-save-directory "C:\\Users\\ja\\AppData\\Local\\Temp")
-(set-default 'tramp-default-method "plink")
