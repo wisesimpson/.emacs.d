@@ -1,21 +1,24 @@
-;; hide menu bar unless it's MacOS
-(unless (eq system-type 'darwin)
-  (menu-bar-mode -1))
+(load-theme 'tsdh-dark t)
 
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+(if (functionp 'menu-bar-mode)
+    (menu-bar-mode -1))
+(if (functionp 'tool-bar-mode)
+    (tool-bar-mode -1))
+(if (functionp 'scroll-bar-mode)
+    (scroll-bar-mode -1))
 
 ;; font
-(cond
- ((find-font (font-spec :name "Consolas"))
-  (set-frame-font "Consolas-12"))
- ((find-font (font-spec :name "Menlo"))
-  (set-frame-font "Menlo-12")))
+;; (cond
+;;  ((find-font (font-spec :name "Consolas"))
+;;   (set-frame-font "Consolas-12"))
+;;  ((find-font (font-spec :name "Menlo"))
+;;   (set-frame-font "Menlo-12")))
 
-(dolist (charset '(kana han symbol cjk-misc bopomofo))
-  (set-fontset-font (frame-parameter nil 'font)
-                    charset
-                    (font-spec :family "DengXian")))
+;; (if (functionp 'set-fontset-font)
+;;     (dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;       (set-fontset-font (frame-parameter nil 'font)
+;;                      charset
+;;                      (font-spec :family "DengXian"))))
 
 (require 'package)
 (add-to-list 'package-archives
@@ -27,11 +30,9 @@
   (package-refresh-contents))
 
 ;; Auto-install packages
-(dolist (package '(magit dracula-theme company slime js2-mode mmm-mode))
+(dolist (package '(magit dracula-theme slime js2-mode company multi-web-mode))
   (unless (package-installed-p package)
     (package-install package)))
-
-(load-theme 'dracula t)
 
 ;; Set path environment only on macOS
 (when (memq window-system '(mac ns))
@@ -72,54 +73,21 @@
 (slime-setup '(slime-repl))
 (define-key slime-mode-map (kbd "C-c e") 'slime-eval-buffer)
 
+(require 'multi-web-mode)
+(setq mweb-default-major-mode 'html-mode)
+(setq mweb-tags '((js-mode "<script[^>]*>" "</script>")
+                  (css-mode "<style>" "</style>")))
+(setq mweb-filename-extensions '("html"))
+(multi-web-global-mode 1)
+
 ;; key binding
 (when (eq system-type 'darwin)
   (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)
   (global-set-key (kbd "<C-s-268632070>") 'toggle-frame-fullscreen))
 
-;; tramp for Windows
 (require 'tramp)
 (set-default 'tramp-auto-save-directory "C:\\Users\\ja\\AppData\\Local\\Temp")
 (set-default 'tramp-default-method "plink")
-
-;; mmm-mode
-(require 'cl)
-(require 'mmm-auto)
-(require 'mmm-vars)
-(setq mmm-global-mode 1)
-
-(mmm-add-group
- 'html-js
- '((js-script-cdata
-    :submode js-mode
-    :face mmm-code-submode-face
-    :front "<script[^>]*>[ \t\n]*\\(//\\)?<!\\[CDATA\\[[ \t]*\n?"
-    :back "[ \t]*\\(//\\)?]]>[ \t\n]*</script>")
-   (js-script
-    :submode js-mode
-    :face mmm-code-submode-face
-    :front "<script[^>]*>[ \t]*\n?"
-    :back "[ \t]*</script>"
-    :insert ((?j js-tag nil @ "<script type=\"text/javascript\">\n"
-                 @ "" _ "" @ "\n</script>" @)))))
-
-(mmm-add-group
- 'html-css
- '((css-cdata
-    :submode css
-    :face mmm-code-submode-face
-    :front "<style[^>]*>[ \t\n]*\\(//\\)?<!\\[CDATA\\[[ \t]*\n?"
-    :back "[ \t]*\\(//\\)?]]>[ \t\n]*</style>")
-   (css
-    :submode css
-    :face mmm-code-submode-face
-    :front "<style[^>]*>[ \t]*\n?"
-    :back "[ \t]*</style>"
-    :insert ((?c css-tag nil @ "<style type=\"text/css\">\n"
-                 @ "" _ "" @ "\n</style>" @)))))
-
-(mmm-add-mode-ext-class 'html-mode nil 'html-js)
-(mmm-add-mode-ext-class 'html-mode nil 'html-css)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -128,11 +96,10 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (mmm-mode exec-path-from-shell slime company dracula-theme magit))))
+    (exec-path-from-shell slime dracula-theme magit company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
