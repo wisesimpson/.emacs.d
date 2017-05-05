@@ -63,6 +63,7 @@
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 50)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 (setq less-css-compile-at-save t)
 (setq less-css-lessc-options (quote ("--no-color -x")))
