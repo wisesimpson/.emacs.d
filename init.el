@@ -17,7 +17,7 @@
 ;;       (set-fontset-font (frame-parameter nil 'font)
 ;;                      charset
 ;;                      (font-spec :family "DengXian"))))
-(set-face-attribute 'default nil :height 130)
+(set-face-attribute 'default nil :height 130 :font "Consolas")
 
 (require 'package)
 (add-to-list 'package-archives
