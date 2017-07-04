@@ -1,5 +1,3 @@
-(load-theme 'tsdh-dark t)
-
 (if (functionp 'menu-bar-mode)
     (menu-bar-mode -1))
 (if (functionp 'tool-bar-mode)
@@ -19,6 +17,7 @@
 ;;       (set-fontset-font (frame-parameter nil 'font)
 ;;                      charset
 ;;                      (font-spec :family "DengXian"))))
+(set-face-attribute 'default (selected-frame) :height 130)
 
 (require 'package)
 (add-to-list 'package-archives
@@ -30,9 +29,11 @@
   (package-refresh-contents))
 
 ;; Auto-install packages
-(dolist (package '(magit dracula-theme slime company multi-web-mode js2-mode))
+(dolist (package '(magit ample-theme slime company multi-web-mode js2-mode))
   (unless (package-installed-p package)
     (package-install package)))
+
+(load-theme 'ample t)
 
 ;; Set path environment only on macOS
 (when (memq window-system '(mac ns))
@@ -98,7 +99,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (exec-path-from-shell slime dracula-theme magit company multi-web-mode js2-mode))))
+    (ample-theme exec-path-from-shell slime ample-theme magit company multi-web-mode js2-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
