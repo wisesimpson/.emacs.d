@@ -63,9 +63,8 @@
 (setq js2-strict-missing-semi-warning nil)
 
 (require 'recentf)
-(setq recentf-auto-cleanup 'never)
 (recentf-mode 1)
-(setq recentf-max-menu-items 50)
+(setq recentf-max-saved-items 100)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 (setq less-css-compile-at-save t)
