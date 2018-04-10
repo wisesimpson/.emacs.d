@@ -5,21 +5,6 @@
 (if (functionp 'scroll-bar-mode)
     (scroll-bar-mode -1))
 
-;; font
-(cond
- ((find-font (font-spec :name "Consolas"))
-  (set-face-attribute 'default nil :height 130 :font "Consolas"))
- ;; ((find-font (font-spec :name "Menlo"))
- ;;  (set-face-attribute 'default nil :height 130 :font "Menlo"))
- (t
-  (set-face-attribute 'default nil :height 130)))
-
-;; (if (functionp 'set-fontset-font)
-;;     (dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;       (set-fontset-font (frame-parameter nil 'font)
-;;                      charset
-;;                      (font-spec :family "DengXian"))))
-
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/"))
