@@ -15,7 +15,7 @@
   (package-refresh-contents))
 
 ;; Auto-install packages
-(dolist (package '(magit ample-theme slime company multi-web-mode js2-mode))
+(dolist (package '(magit ample-theme slime company multi-web-mode js2-mode monokai-theme))
   (unless (package-installed-p package)
     (package-install package)))
 
@@ -49,7 +49,7 @@
 
 (require 'recentf)
 (recentf-mode 1)
-(setq recentf-max-saved-items 100)
+(setq recentf-max-saved-items 1000)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 (setq less-css-compile-at-save t)
@@ -85,9 +85,3 @@
  '(package-selected-packages
    (quote
     (exec-path-from-shell slime monokai-theme magit company multi-web-mode js2-mode))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
