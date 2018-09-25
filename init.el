@@ -15,7 +15,7 @@
   (package-refresh-contents))
 
 ;; Auto-install packages
-(dolist (package '(magit ample-theme slime company multi-web-mode js2-mode monokai-theme))
+(dolist (package '(magit slime company multi-web-mode js2-mode monokai-theme))
   (unless (package-installed-p package)
     (package-install package)))
 
