@@ -40,7 +40,7 @@
 
 ;; visual line mode
 (global-visual-line-mode 1)
-;; (setq-default line-spacing 0.25)
+(setq-default line-spacing 0.4)
 
 (add-hook 'after-init-hook 'global-company-mode)
 
