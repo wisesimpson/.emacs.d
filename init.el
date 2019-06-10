@@ -17,7 +17,7 @@
  '(scroll-bar-mode nil)
  '(package-selected-packages
    (quote
-    (scad-mode exec-path-from-shell slime monokai-theme magit company multi-web-mode js2-mode))))
+    (scad-mode exec-path-from-shell slime magit company multi-web-mode js2-mode))))
 (package-install-selected-packages)
 
 ;; (load-theme 'monokai t)
