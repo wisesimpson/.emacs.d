@@ -1,6 +1,6 @@
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/"))
+             '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
 ;; Fetch the list of packages available 
@@ -13,11 +13,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(menu-bar-mode nil)
- '(tool-bar-mode nil)
  '(scroll-bar-mode nil)
  '(package-selected-packages
    (quote
-    (scad-mode exec-path-from-shell slime magit company multi-web-mode js2-mode))))
+    (slime magit company))))
 (package-install-selected-packages)
 
 ;; (load-theme 'monokai t)
@@ -65,9 +64,6 @@
 
 (add-hook 'after-init-hook 'global-company-mode)
 
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(setq js2-strict-missing-semi-warning nil)
-
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-saved-items 1000)
@@ -81,15 +77,3 @@
 (require 'slime)
 (slime-setup '(slime-repl))
 (define-key slime-mode-map (kbd "C-c e") 'slime-eval-buffer)
-
-;; (require 'multi-web-mode)
-;; (setq mweb-default-major-mode 'html-mode)
-;; (setq mweb-tags '((js-mode "<script[^>]*>" "</script>")
-;;                   (css-mode "<style>" "</style>")))
-;; (setq mweb-filename-extensions '("html"))
-;; (multi-web-global-mode 1)
-
-;; key binding
-;; (when (eq system-type 'darwin)
-;;   (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)
-;;   (global-set-key (kbd "<C-s-268632070>") 'toggle-frame-fullscreen))
