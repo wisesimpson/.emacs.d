@@ -28,7 +28,7 @@
 ;;   (exec-path-from-shell-initialize))
 
 ;; highlight current line
-;; (global-hl-line-mode +1)
+(global-hl-line-mode 1)
 
 ;; line number
 (global-display-line-numbers-mode)
