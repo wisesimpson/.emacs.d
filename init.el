@@ -16,7 +16,7 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (tsdh-dark)))
+ '(custom-enabled-themes (quote (manoj-dark)))
  '(menu-bar-mode nil)
  '(package-selected-packages (quote (slime magit company)))
  '(scroll-bar-mode nil))
