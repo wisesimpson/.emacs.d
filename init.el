@@ -11,7 +11,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages (quote (slime magit)))
  '(scroll-bar-mode nil)
- '(global-hl-line-mode 1)
+ ;; '(global-hl-line-mode 1)
  '(global-display-line-numbers-mode t)
  '(global-visual-line-mode 1))
 (package-install-selected-packages)
