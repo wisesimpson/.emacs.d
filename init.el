@@ -10,6 +10,17 @@
       (process-send-eof proc))))
 (setq interprogram-cut-function 'paste-to-osx)
 
+(defun update-kill-ring-from-pbpaste (&rest _)
+  "If system clipboard content is different from top of kill ring, push it in."
+  (let ((clip (string-trim (shell-command-to-string "pbpaste"))))
+    (when (and (not (string= clip ""))
+               (or (null kill-ring)
+                   (not (string= clip (car kill-ring)))))
+      (kill-new clip))))
+
+;; Advice yank to always update from clipboard first
+(advice-add 'yank :before #'update-kill-ring-from-pbpaste)
+
 ;; Fetch the list of packages available 
 (unless package-archive-contents
   (package-refresh-contents))
