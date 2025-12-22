@@ -63,13 +63,15 @@
 
 (global-set-key (kbd "C-x C-r") #'recentf-open-files)
 
-(use-package slime
+(use-package corfu
   :ensure t
   :init
   (global-corfu-mode))
 
 (setq inferior-lisp-program "sbcl")
-(require 'slime)
+
+(use-package slime
+  :ensure t)
 (slime-setup '(slime-fancy))
 
 (with-eval-after-load 'slime
