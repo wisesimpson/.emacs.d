@@ -1,86 +1,72 @@
+;;; init.el --- Modernized Emacs Configuration
+;;; Optimized for Common Lisp & AI-assisted development
+
 (require 'package)
-
-(setq package-archives
-      '(("gnu" . "https://elpa.gnu.org/packages/")
-        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-        ("melpa" . "https://melpa.org/packages/")))
+(setq package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+                         ("melpa"  . "https://melpa.org/packages/")))
 (package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
 
-;; (use-package dracula-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'dracula t))
+;; 自动安装并加载 use-package
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
+(setq use-package-always-ensure t)
 
+;; --- 界面与基础设置 ---
 (use-package doom-themes
-  :ensure t
-  :config
-  (load-theme 'doom-one t))
+  :config (load-theme 'doom-one t))
 
 (when (display-graphic-p)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
-  (tooltip-mode -1)
-  ;; (set-face-attribute 'default nil :font "SF Mono" :height 150)
   (set-frame-font "SF Mono-14" nil t)
   (setq-default line-spacing 4))
-
-(setq inhibit-startup-screen t)
-
-(defun paste-to-osx (text &optional push)
-  (let ((process-connection-type nil))
-    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-      (process-send-string proc text)
-      (process-send-eof proc))))
-(setq interprogram-cut-function 'paste-to-osx)
-
-(defun update-kill-ring-from-pbpaste (&rest _)
-  "If system clipboard content is different from top of kill ring, push it in."
-  (let ((clip (shell-command-to-string "pbpaste")))
-    (when (and (not (string= clip ""))
-               (or (null kill-ring)
-                   (not (string= clip (car kill-ring)))))
-      (kill-new clip))))
-
-;; Advice yank to always update from clipboard first
-(advice-add 'yank :before #'update-kill-ring-from-pbpaste)
 
 (menu-bar-mode -1)
 (global-display-line-numbers-mode 1)
 (global-visual-line-mode 1)
+(setq inhibit-startup-screen t)
+(setq select-enable-clipboard t) ;; 自动处理 macOS 剪贴板
+
+;; --- 现代交互套件 (查找与补全) ---
+(use-package vertico :init (vertico-mode 1))
+(use-package orderless :init (setq completion-styles '(orderless basic)))
+(use-package consult 
+  :bind (("C-x C-r" . consult-recent-file)
+         ("C-x b" . consult-buffer)))
+
+;; --- 文件与位置记录 ---
+(recentf-mode 1)
+(setq recentf-max-saved-items 500)
 (save-place-mode 1)
 (savehist-mode 1)
 
-(use-package recentf
-  :ensure nil
-  :init
-  (setq recentf-max-saved-items 200
-        recentf-auto-cleanup 'never)
+;; --- 核心语言环境 (Common Lisp) ---
+;; 彻底移除 SLIME，全面拥抱 SLY
+(use-package sly
   :config
-  (recentf-mode 1)
-  (add-hook 'after-init-hook #'recentf-open-files))
+  (setq inferior-lisp-program "sbcl")
+  (setq sly-contribs '(sly-fancy)))
 
-(global-set-key (kbd "C-x C-r") #'recentf-open-files)
-
-(use-package corfu
-  :ensure t
-  :init
-  (global-corfu-mode))
-
-(setq inferior-lisp-program "sbcl")
-
-(use-package slime
+(use-package vterm
   :ensure t)
-(slime-setup '(slime-fancy))
 
-(with-eval-after-load 'slime
-  (define-key slime-mode-map      (kbd "TAB") #'indent-for-tab-command)
-  (define-key slime-repl-mode-map (kbd "TAB") #'indent-for-tab-command)
-  (define-key slime-mode-map (kbd "C-c e") #'slime-eval-buffer))
+(defun my/claude ()
+  (interactive)
+  (vterm)
+  (vterm-send-string "claude")
+  (vterm-send-return))
 
-(use-package magit :ensure t)
+(global-set-key (kbd "C-c a") 'my/claude)
 
+;; --- 生产力插件 ---
+(use-package magit)
+(use-package corfu :init (global-corfu-mode))
+
+(provide 'init)
+;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
