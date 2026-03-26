@@ -21,7 +21,7 @@
 (when (display-graphic-p)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
-  (set-frame-font "SF Mono-14" nil t)
+  (set-face-attribute 'default nil :height 140)
   (setq-default line-spacing 4))
 
 (menu-bar-mode -1)
