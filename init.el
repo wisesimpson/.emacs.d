@@ -21,7 +21,9 @@
 (when (display-graphic-p)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
-  (set-face-attribute 'default nil :height 140)
+  (set-face-attribute 'default nil :family "Menlo" :height 140)
+  (set-fontset-font t 'han (font-spec :family "PingFang SC"))
+  (set-fontset-font t 'cjk-misc (font-spec :family "PingFang SC"))
   (setq-default line-spacing 4))
 
 (menu-bar-mode -1)
@@ -50,16 +52,14 @@
   (setq inferior-lisp-program "sbcl")
   (setq sly-contribs '(sly-fancy)))
 
-(use-package vterm
+(use-package eat
   :ensure t)
 
-(defun my/claude ()
+(defun my/agent ()
   (interactive)
-  (vterm)
-  (vterm-send-string "claude")
-  (vterm-send-return))
+  (eat "codex"))
 
-(global-set-key (kbd "C-c a") 'my/claude)
+(global-set-key (kbd "C-c a") 'my/agent)
 
 ;; --- 生产力插件 ---
 (use-package magit)
