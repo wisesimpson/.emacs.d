@@ -9,7 +9,8 @@
 
 ;; 自动安装并加载 use-package
 (unless (package-installed-p 'use-package)
-  (package-refresh-contents)
+  (unless package-archive-contents
+    (package-refresh-contents))
   (package-install 'use-package))
 (require 'use-package)
 (setq use-package-always-ensure t)
@@ -27,10 +28,33 @@
   (setq-default line-spacing 4))
 
 (menu-bar-mode -1)
-(global-display-line-numbers-mode 1)
-(global-visual-line-mode 1)
+(dolist (hook '(eat-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                eshell-mode-hook
+                sly-mrepl-mode-hook))
+  (add-hook hook (lambda () (display-line-numbers-mode 0))))
+(add-hook 'text-mode-hook #'visual-line-mode)
 (setq inhibit-startup-screen t)
 (setq select-enable-clipboard t) ;; 自动处理 macOS 剪贴板
+;; macOS clipboard support for terminal Emacs
+(when (and (eq system-type 'darwin)
+           (not (display-graphic-p)))
+  (defun my/pbcopy (text &optional _push)
+    "Copy TEXT to macOS clipboard using pbcopy."
+    (let ((process-connection-type nil))
+      (let ((proc (start-process "pbcopy" nil "pbcopy")))
+        (process-send-string proc text)
+        (process-send-eof proc))))
+
+  (defun my/pbpaste ()
+    "Paste text from macOS clipboard using pbpaste."
+    (let ((text (shell-command-to-string "pbpaste")))
+      (unless (string= text "")
+        text)))
+
+  (setq interprogram-cut-function #'my/pbcopy
+        interprogram-paste-function #'my/pbpaste))
 
 ;; --- 现代交互套件 (查找与补全) ---
 (use-package vertico :init (vertico-mode 1))
@@ -67,15 +91,3 @@
 
 (provide 'init)
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
