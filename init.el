@@ -81,7 +81,7 @@
 
 (defun my/agent ()
   (interactive)
-  (eat "codex"))
+  (eat "codex --no-alt-screen"))
 
 (global-set-key (kbd "C-c a") 'my/agent)
 
